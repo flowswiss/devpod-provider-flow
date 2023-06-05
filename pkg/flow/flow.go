@@ -1,4 +1,4 @@
-gpackage flow
+package flow
 
 import (
 	"context"
