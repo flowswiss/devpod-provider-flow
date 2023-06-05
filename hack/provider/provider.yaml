@@ -1,0 +1,176 @@
+name: flow
+version: ##VERSION##
+description: |-
+  DevPod on Flow
+
+icon: https://my.flow.swiss/assets/img/myflow/logo-icon-neg.svg
+optionGroups:
+  - options:
+      - FLOW_LOCATION
+      - FLOW_IMAGE
+      - FLOW_PRODUCT
+      - FLOW_NETWORK
+    name: "Flow options"
+  - options:
+      - AGENT_PATH
+      - AGENT_DATA_PATH
+      - INACTIVITY_TIMEOUT
+      - INJECT_DOCKER_CREDENTIALS
+      - INJECT_GIT_CREDENTIALS
+    name: "Agent options"
+options:
+  FLOW_TOKEN:
+    description: The Flow token to use.
+    required: true
+    password: true
+    command: |-
+      if [ ! -z "${FLOW_TOKEN}" ]; then
+        echo ${FLOW_TOKEN}
+      fi
+  FLOW_LOCATION:
+    description: The flow location to use. E.g. ALP1
+    required: true
+    default: ALP1
+    suggestions:
+      - ALP1
+      - ZRH1
+  FLOW_NETWORK:
+    description: The flow network to use. E.g. "Default Network"
+    required: true
+    default: "Default Network"
+    suggestions:
+      - "Default Network"
+  FLOW_IMAGE:
+    description: The flow image to use. E.g. linux-ubuntu-20.04-lts
+    required: true
+    default: linux-ubuntu-20.04-lts
+    suggestions:
+      - linux-ubuntu-18.04-lts
+      - linux-ubuntu-16.04-lts
+      - linux-ubuntu-20.04-lts
+      - linux-debian-10
+      - linux-centos-7
+      - linux-centos-8
+      - linux-fedora-coreos-31
+      - linux-rancheros-1.5.5
+      - microsoft-windows-server-2019
+      - linux-fedora-31
+      - microsoft-windows-server-2019-2022
+      - microsoft-windows-server-2016
+      - linux-vyos-crux-1.2.3
+      - linux-vyos-crux-1.2.4
+      - linux-fortigate-6.2.3
+      - linux-fedora-32
+      - linux-vyos-crux-1.2.5
+      - linux-fortigate-6.4.0
+      - linux-flatcar-stable-2512
+      - freebsd-12.2
+      - linux-vyos-crux-1.2.6
+      - linux-flatcar-stable-2765
+      - linux-vyos-crux-1.2.7
+      - linux-fortigate-7.0.0
+      - linux-centos-8.3
+      - linux-almalinux-8
+      - linux-vzlinux-8
+      - linux-fedora-34
+      - linux-debian-11
+      - linux-fedora-coreos-34
+      - linux-flatcar-stable-3033
+      - linux-ubuntu-22.04-lts
+      - linux-almalinux-9
+      - linux-almalinux-8.5
+      - linux-rocky-8.5
+      - linux-fedora-35
+      - linux-fedora-coreos-35
+      - linux-vyos-crux-1.3.1
+      - microsoft-windows-server-2022
+      - freebsd-13.1
+      - linux-flatcar-stable-3227
+      - openbsd-7.2
+      - linux-vyos-crux-1.3.2
+  FLOW_PRODUCT:
+    description: The flow compute VM product to use. E.g. b1.1x1
+    required: true
+    default: b1.1x1
+    suggestions:
+      - b1.1x1
+      - b1.1x2
+      - b1.2x2
+      - b1.2x4
+      - b1.2x8
+      - b1.4x8
+      - b1.4x16
+      - b1.4x32
+      - b1.8x32
+      - b1.8x64
+      - b1.8x96
+      - b1.16x96
+      - b1.16x128
+      - b1.24x128
+      - b1.24x256
+      - b1.32x256
+      - b1.32x512
+  INACTIVITY_TIMEOUT:
+    description: If defined, will automatically stop the VM after the inactivity period.
+    default: 10m
+  INJECT_GIT_CREDENTIALS:
+    description: "If DevPod should inject git credentials into the remote host."
+    default: "true"
+  INJECT_DOCKER_CREDENTIALS:
+    description: "If DevPod should inject docker credentials into the remote host."
+    default: "true"
+  AGENT_PATH:
+    description: The path where to inject the DevPod agent to.
+    default: /home/devpod/.devpod/devpod
+  AGENT_DATA_PATH:
+    description: The path where to store the agent data.
+    default: /home/devpod/.devpod/agent
+agent:
+  path: ${AGENT_PATH}
+  dataPath: ${AGENT_DATA_PATH}
+  inactivityTimeout: ${INACTIVITY_TIMEOUT}
+  injectGitCredentials: ${INJECT_GIT_CREDENTIALS}
+  injectDockerCredentials: ${INJECT_DOCKER_CREDENTIALS}
+  binaries:
+    DO_PROVIDER:
+      - os: linux
+        arch: amd64
+        path: https://github.com/flowswiss/devpod-provider-flow/releases/download/##VERSION##/devpod-provider-flow-linux-amd64
+        checksum: ##CHECKSUM_LINUX_AMD64##
+      - os: linux
+        arch: arm64
+        path: https://github.com/flowswiss/devpod-provider-flow/releases/download/##VERSION##/devpod-provider-flow-linux-arm64
+        checksum: ##CHECKSUM_LINUX_ARM64##
+  exec:
+    shutdown: |-
+      ${DO_PROVIDER} stop
+binaries:
+  DO_PROVIDER:
+    - os: linux
+      arch: amd64
+      path: https://github.com/flowswiss/devpod-provider-flow/releases/download/##VERSION##/devpod-provider-flow-linux-amd64
+      checksum: ##CHECKSUM_LINUX_AMD64##
+    - os: linux
+      arch: arm64
+      path: https://github.com/flowswiss/devpod-provider-flow/releases/download/##VERSION##/devpod-provider-flow-linux-arm64
+      checksum: ##CHECKSUM_LINUX_ARM64##
+    - os: darwin
+      arch: amd64
+      path: https://github.com/flowswiss/devpod-provider-flow/releases/download/##VERSION##/devpod-provider-flow-darwin-amd64
+      checksum: ##CHECKSUM_DARWIN_AMD64##
+    - os: darwin
+      arch: arm64
+      path: https://github.com/flowswiss/devpod-provider-flow/releases/download/##VERSION##/devpod-provider-flow-darwin-arm64
+      checksum: ##CHECKSUM_DARWIN_ARM64##
+    - os: windows
+      arch: amd64
+      path: https://github.com/flowswiss/devpod-provider-flow/releases/download/##VERSION##/devpod-provider-flow-windows-amd64.exe
+      checksum: ##CHECKSUM_WINDOWS_AMD64##
+exec:
+  init: ${DO_PROVIDER} init
+  command: ${DO_PROVIDER} command
+  create: ${DO_PROVIDER} create
+  delete: ${DO_PROVIDER} delete
+  start: ${DO_PROVIDER} start
+  stop: ${DO_PROVIDER} stop
+  status: ${DO_PROVIDER} status
