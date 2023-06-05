@@ -31,7 +31,7 @@ This provides has the seguent options
 
 | NAME            | REQUIRED | DESCRIPTION                         | DEFAULT                |
 |-----------------|----------|-------------------------------------|------------------------|
-| FLOW_LOCATION   | true     | The flow location to use.           | BIT1                   |
+| FLOW_LOCATION   | true     | The flow location to use.           | ALP1                   |
 | FLOW_IMAGE      | true     | The flow image to use.              | linux-ubuntu-20.04-lts |
 | FLOW_PRODUCT    | true     | The flow compute VM product to use. | b1.1x1                 |
 | FLOW_NETWORK    | true     | The flow network to use.            | Default Network        |
