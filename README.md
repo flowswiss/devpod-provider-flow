@@ -6,7 +6,7 @@ The provider is available for auto-installation using
 
 ```sh
 devpod provider add flowswiss/devpod-provider-flow
-devpod provider use flowswiss/devpod-provider-flow
+devpod provider use flow
 ```
 
 Follow the on-screen instructions to complete the setup.
